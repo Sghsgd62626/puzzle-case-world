@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>StumbleHub</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #090b10;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+/* HEADER */
+
+header {
+    height: 72px;
+    background: #0d1017;
+    border-bottom: 1px solid #252a35;
+
+    display: flex;
+    align-items: center;
+    padding: 0 5%;
+    gap: 35px;
+
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.logo {
+    font-size: 23px;
+    font-weight: 900;
+}
+
+.logo span {
+    color: #7657ff;
+}
+
+nav {
+    display: flex;
+    gap: 5px;
+}
+
+nav button {
+    border: none;
+    background: transparent;
+    color: #858c9e;
+
+    padding: 11px 16px;
+    border-radius: 9px;
+
+    cursor: pointer;
+    font-weight: bold;
+}
+
+nav button:hover,
+nav button.active {
+    background: #191d26;
+    color: white;
+}
+
+.profile {
+    margin-left: auto;
+
+    padding: 10px 15px;
+    border-radius: 10px;
+
+    background: #171b24;
+    border: 1px solid #292e3a;
+
+    font-weight: bold;
+}
+
+/* MAIN */
+
+main {
+    max-width: 1250px;
+    margin: auto;
+    padding: 32px 5% 70px;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+/* HERO */
+
+.hero {
+    min-height: 400px;
+
+    border: 1px solid #292e3a;
+    border-radius: 24px;
+
+    padding: 55px;
+
+    display: flex;
+    align-items: center;
+
+    overflow: hidden;
+    position: relative;
+
+    background:
+        radial-gradient(
+            circle at 85% 50%,
+            #6845b8 0%,
+            #292450 25%,
+            #11151e 65%
+        );
+}
+
+.hero:after {
+    content: "";
+
+    position: absolute;
+
+    width: 430px;
+    height: 430px;
+
+    right: -100px;
+    top: -70px;
+
+    border-radius: 50%;
+
+    background: linear-gradient(
+        135deg,
+        #875cff,
+        #3d8cff
+    );
+
+    opacity: .22;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+
+    max-width: 600px;
+}
+
+.badge {
+    display: inline-block;
+
+    padding: 7px 12px;
+
+    border-radius: 7px;
+
+    background: #241d42;
+    border: 1px solid #55458b;
+
+    color: #b7a7ff;
+
+    font-size: 12px;
+    font-weight: bold;
+}
+
+h1 {
+    font-size: clamp(45px, 7vw, 75px);
+    line-height: .9;
+
+    margin: 18px 0;
+
+    letter-spacing: -4px;
+}
+
+.hero p {
+    color: #aeb4c4;
+
+    max-width: 500px;
+
+    line-height: 1.6;
+
+    margin-bottom: 22px;
+}
+
+.primary {
+    border: none;
+
+    padding: 14px 22px;
+
+    border-radius: 10px;
+
+    color: white;
+
+    font-weight: bold;
+
+    background: linear-gradient(
+        135deg,
+        #7656ff,
+        #9b4dff
+    );
+
+    cursor: pointer;
+}
+
+/* SECTIONS */
+
+.section {
+    margin-top: 40px;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 18px;
+}
+
+.title h2 {
+    font-size: 24px;
+}
+
+.title span {
+    color: #747b8e;
+    font-size: 13px;
+}
+
+/* CARDS */
+
+.cards {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 16px;
+}
+
+.card {
+    height: 280px;
+
+    padding: 18px;
+
+    border-radius: 17px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #171a23,
+            #0e1118
+        );
+
+    border: 1px solid #252a36;
+
+    overflow: hidden;
+}
+
+.visual {
+    height: 195px;
+
+    border-radius: 13px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 80px;
+
+    background:
+        radial-gradient(
+            circle,
+            #3b4160,
+            #171a24 65%
+        );
+}
+
+.card h3 {
+    margin-top: 13px;
+    margin-bottom: 4px;
+}
+
+.muted {
+    color: #747b8e;
+    font-size: 13px;
+}
+
+/* STATS */
+
+.stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 12px;
+}
+
+.stat {
+    padding: 20px;
+
+    border-radius: 14px;
+
+    background: #11141c;
+
+    border: 1px solid #242936;
+}
+
+.stat strong {
+    display: block;
+
+    font-size: 27px;
+
+    margin-top: 7px;
+}
+
+/* LEADERBOARD */
+
+.list {
+    display: grid;
+    gap: 10px;
+}
+
+.player {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 15px;
+
+    background: #11141c;
+
+    border: 1px solid #242936;
+
+    border-radius: 13px;
+}
+
+.number {
+    width: 35px;
+
+    color: #777f92;
+
+    font-weight: 900;
+}
+
+.avatar {
+    width: 42px;
+    height: 42px;
+
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7054ff,
+            #3e8cff
+        );
+
+    font-weight: 900;
+}
+
+.player-name {
+    font-weight: bold;
+}
+
+.player-rank {
+    color: #737b8d;
+    font-size: 12px;
+    margin-top: 3px;
+}
+
+.points {
+    margin-left: auto;
+    font-weight: bold;
+}
+
+/* MOBILE */
+
+@media(max-width:800px) {
+
+    header {
+        padding: 0 15px;
+        gap: 10px;
+    }
+
+    .logo {
+        font-size: 18px;
+    }
+
+    nav button {
+        padding: 9px 7px;
+        font-size: 11px;
+    }
+
+    .profile {
+        display: none;
+    }
+
+    main {
+        padding: 20px 15px;
+    }
+
+    .hero {
+        padding: 30px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .stats {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        STUMBLE<span>HUB</span>
+    </div>
+
+    <nav>
+
+        <button
+            class="active"
+            onclick="openPage('home', this)">
+            Главная
+        </button>
+
+        <button
+            onclick="openPage('skins', this)">
+            Скины
+        </button>
+
+        <button
+            onclick="openPage('inventory', this)">
+            Инвентарь
+        </button>
+
+        <button
+            onclick="openPage('leaders', this)">
+            Лидеры
+        </button>
+
+    </nav>
+
+    <div class="profile">
+        YT|Ares vega
+    </div>
+
+</header>
+
+
+<main>
+
+<!-- ГЛАВНАЯ -->
+
+<section
+    id="home"
+    class="page active">
+
+    <div class="hero">
+
+        <div class="hero-content">
+
+            <span class="badge">
+                STUMBLE GUYS COMMUNITY
+            </span>
+
+            <h1>
+                STUMBLE<br>
+                HUB
+            </h1>
+
+            <p>
+                Игровой хаб Stumble Guys:
+                скины, коллекции, игроки
+                и рейтинги в одном месте.
+            </p>
+
+            <button
+                class="primary"
+                onclick="openPage(
+                    'skins',
+                    document.querySelectorAll('nav button')[1]
+                )">
+
+                Открыть скины
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="title">
+
+            <h2>
+                Популярные скины
+            </h2>
+
+            <span>
+                Смотреть все →
+            </span>
+
+        </div>
+
+
+        <div class="cards">
+
+            <div class="card">
+
+                <div class="visual">
+                    🥷
+                </div>
+
+                <h3>
+                    Shadow Ninja
+                </h3>
+
+                <span class="muted">
+                    Legendary
+                </span>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="visual">
+                    👑
+                </div>
+
+                <h3>
+                    Golden Champion
+                </h3>
+
+                <span class="muted">
+                    Special
+                </span>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="visual">
+                    🤖
+                </div>
+
+                <h3>
+                    Cyber Bot
+                </h3>
+
+                <span class="muted">
+                    Epic
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="title">
+            <h2>
+                Статистика
+            </h2>
+        </div>
+
+        <div class="stats">
+
+            <div class="stat">
+                <span class="muted">
+                    Игроков
+                </span>
+
+                <strong>
+                    24 891
+                </strong>
+            </div>
+
+            <div class="stat">
+                <span class="muted">
+                    Скинов
+                </span>
+
+                <strong>
+                    1 284
+                </strong>
+            </div>
+
+            <div class="stat">
+                <span class="muted">
+                    Матчей
+                </span>
+
+                <strong>
+                    98 420
+                </strong>
+            </div>
+
+            <div class="stat">
+                <span class="muted">
+                    Онлайн
+                </span>
+
+                <strong>
+                    1 247
+                </strong>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- СКИНЫ -->
+
+<section
+    id="skins"
+    class="page">
+
+    <div class="title">
+
+        <h2>
+            Скины
+        </h2>
+
+        <span>
+            Коллекция Stumble Guys
+        </span>
+
+    </div>
+
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="visual">🥷</div>
+            <h3>Shadow Ninja</h3>
+            <span class="muted">Legendary</span>
+        </div>
+
+        <div class="card">
+            <div class="visual">👑</div>
+            <h3>Golden Champion</h3>
+            <span class="muted">Special</span>
+        </div>
+
+        <div class="card">
+            <div class="visual">🤖</div>
+            <h3>Cyber Bot</h3>
+            <span class="muted">Epic</span>
+        </div>
+
+        <div class="card">
+            <div class="visual">🔥</div>
+            <h3>Inferno</h3>
+            <span class="muted">Rare</span>
+        </div>
+
+        <div class="card">
+            <div class="visual">⚡</div>
+            <h3>Volt</h3>
+            <span class="muted">Epic</span>
+        </div>
+
+        <div class="card">
+            <div class="visual">🧊</div>
+            <h3>Ice King</h3>
+            <span class="muted">Legendary</span>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ИНВЕНТАРЬ -->
+
+<section
+    id="inventory"
+    class="page">
+
+    <div class="title">
+
+        <h2>
+            Инвентарь
+        </h2>
+
+        <span>
+            YT|Ares vega
+        </span>
+
+    </div>
+
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="visual">👑</div>
+            <h3>Golden Champion</h3>
+            <span class="muted">
+                В коллекции
+            </span>
+        </div>
+
+        <div class="card">
+            <div class="visual">🥷</div>
+            <h3>Shadow Ninja</h3>
+            <span class="muted">
+                В коллекции
+            </span>
+        </div>
+
+        <div class="card">
+            <div class="visual">⚡</div>
+            <h3>Volt</h3>
+            <span class="muted">
+                В коллекции
+            </span>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ЛИДЕРЫ -->
+
+<section
+    id="leaders"
+    class="page">
+
+    <div class="title">
+
+        <h2>
+            Лидерборд
+        </h2>
+
+        <span>
+            Top players
+        </span>
+
+    </div>
+
+
+    <div class="list">
+
+        <div class="player">
+
+            <div class="number">
+                01
+            </div>
+
+            <div class="avatar">
+                A
+            </div>
+
+            <div>
+                <div class="player-name">
+                    Ares vega
+                </div>
+
+                <div class="player-rank">
+                    Champion
+                </div>
+            </div>
+
+            <div class="points">
+                12 840
+            </div>
+
+        </div>
+
+
+        <div class="player">
+
+            <div class="number">
+                02
+            </div>
+
+            <div class="avatar">
+                S
+            </div>
+
+            <div>
+                <div class="player-name">
+                    Shadow
+                </div>
+
+                <div class="player-rank">
+                    Champion
+                </div>
+            </div>
+
+            <div class="points">
+                12 510
+            </div>
+
+        </div>
+
+
+        <div class="player">
+
+            <div class="number">
+                03
+            </div>
+
+            <div class="avatar">
+                V
+            </div>
+
+            <div>
+                <div class="player-name">
+                    Vortex
+                </div>
+
+                <div class="player-rank">
+                    Master
+                </div>
+            </div>
+
+            <div class="points">
+                11 970
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<script>
+
+function openPage(page, button) {
+
+    document
+        .querySelectorAll(".page")
+        .forEach(
+            p => p.classList.remove("active")
+        );
+
+    document
+        .getElementById(page)
+        .classList.add("active");
+
+
+    document
+        .querySelectorAll("nav button")
+        .forEach(
+            b => b.classList.remove("active")
+        );
+
+    if (button) {
+        button.classList.add("active");
+    }
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+</script>
+
+</body>
+</html>
