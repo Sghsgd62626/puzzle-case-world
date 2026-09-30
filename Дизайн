@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>StumbleHub</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    background:#080a0f;
+    color:#fff;
+    font-family:Arial,sans-serif;
+}
+
+/* ===== HEADER ===== */
+
+header{
+    height:72px;
+    background:#0d1017;
+    border-bottom:1px solid #242936;
+
+    display:flex;
+    align-items:center;
+
+    padding:0 5%;
+    gap:35px;
+
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.logo{
+    font-size:23px;
+    font-weight:900;
+}
+
+.logo span{
+    color:#7957ff;
+}
+
+nav{
+    display:flex;
+    gap:5px;
+}
+
+nav button{
+    border:0;
+    background:transparent;
+
+    color:#858c9e;
+
+    padding:11px 15px;
+    border-radius:9px;
+
+    cursor:pointer;
+    font-weight:700;
+
+    transition:.2s;
+}
+
+nav button:hover,
+nav button.active{
+    background:#191d27;
+    color:white;
+}
+
+.profile{
+    margin-left:auto;
+
+    padding:10px 15px;
+
+    border-radius:10px;
+
+    background:#171b24;
+    border:1px solid #292e3a;
+
+    font-weight:bold;
+}
+
+/* ===== MAIN ===== */
+
+main{
+    max-width:1250px;
+    margin:auto;
+    padding:32px 5% 80px;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+/* ===== HERO ===== */
+
+.hero{
+    min-height:400px;
+
+    border:1px solid #292e3a;
+    border-radius:24px;
+
+    padding:55px;
+
+    display:flex;
+    align-items:center;
+
+    position:relative;
+    overflow:hidden;
+
+    background:
+        radial-gradient(
+            circle at 80% 45%,
+            #6546b7,
+            #28244d 25%,
+            #11151e 68%
+        );
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+    max-width:600px;
+}
+
+.badge{
+    display:inline-block;
+
+    padding:7px 12px;
+
+    border-radius:7px;
+
+    background:#241d42;
+    border:1px solid #57478e;
+
+    color:#bbaaff;
+
+    font-size:12px;
+    font-weight:800;
+}
+
+h1{
+    font-size:clamp(45px,7vw,75px);
+    line-height:.9;
+
+    margin:18px 0;
+
+    letter-spacing:-4px;
+}
+
+.hero p{
+    color:#aeb4c4;
+    max-width:500px;
+    line-height:1.6;
+}
+
+.primary{
+    margin-top:23px;
+
+    border:0;
+
+    padding:14px 22px;
+
+    border-radius:10px;
+
+    color:white;
+
+    font-weight:800;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7656ff,
+            #a04dff
+        );
+
+    cursor:pointer;
+}
+
+/* ===== SECTION ===== */
+
+.section{
+    margin-top:40px;
+}
+
+.title{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    margin-bottom:18px;
+}
+
+.title h2{
+    font-size:24px;
+}
+
+.title span{
+    color:#747b8e;
+    font-size:13px;
+}
+
+/* ===== SKIN CARDS ===== */
+
+.cards{
+    display:grid;
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:16px;
+}
+
+.card{
+    background:
+        linear-gradient(
+            145deg,
+            #171a23,
+            #0e1118
+        );
+
+    border:1px solid #252a36;
+
+    border-radius:17px;
+
+    overflow:hidden;
+
+    cursor:pointer;
+
+    transition:
+        transform .2s,
+        border-color .2s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    border-color:#6251b7;
+}
+
+.visual{
+    height:220px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:90px;
+
+    background:
+        radial-gradient(
+            circle,
+            #3b4160,
+            #171a24 65%
+        );
+}
+
+.card-info{
+    padding:17px;
+}
+
+.card-info h3{
+    margin-bottom:6px;
+}
+
+.rarity{
+    color:#8d94a7;
+    font-size:13px;
+}
+
+/* ===== MARKET ===== */
+
+.market-top{
+    display:flex;
+    gap:10px;
+    margin-bottom:22px;
+}
+
+.search{
+    flex:1;
+
+    background:#11141c;
+    border:1px solid #292e39;
+
+    color:white;
+
+    padding:14px 16px;
+
+    border-radius:10px;
+
+    outline:none;
+}
+
+.search:focus{
+    border-color:#7055ff;
+}
+
+.filter{
+    background:#11141c;
+
+    border:1px solid #292e39;
+
+    color:white;
+
+    padding:0 15px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+}
+
+/* ===== PLAYER ===== */
+
+.player-list{
+    display:grid;
+    gap:10px;
+}
+
+.player{
+    display:flex;
+    align-items:center;
+
+    gap:15px;
+
+    padding:15px;
+
+    border-radius:13px;
+
+    background:#11141c;
+    border:1px solid #242936;
+}
+
+.avatar{
+    width:44px;
+    height:44px;
+
+    border-radius:11px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7054ff,
+            #3e8cff
+        );
+
+    font-weight:900;
+}
+
+.player-name{
+    font-weight:800;
+}
+
+.player-rank{
+    color:#737b8d;
+    font-size:12px;
+    margin-top:3px;
+}
+
+.points{
+    margin-left:auto;
+    font-weight:800;
+}
+
+/* ===== MODAL ===== */
+
+.modal{
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.72);
+
+    backdrop-filter:blur(8px);
+
+    display:none;
+
+    align-items:center;
+    justify-content:center;
+
+    z-index:500;
+
+    padding:20px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:min(500px,100%);
+
+    background:#12151e;
+
+    border:1px solid #303545;
+
+    border-radius:20px;
+
+    padding:25px;
+
+    position:relative;
+}
+
+.close{
+    position:absolute;
+
+    top:15px;
+    right:15px;
+
+    width:34px;
+    height:34px;
+
+    border:0;
+    border-radius:9px;
+
+    background:#20242e;
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:18px;
+}
+
+.modal-visual{
+    height:260px;
+
+    border-radius:15px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:110px;
+
+    background:
+        radial-gradient(
+            circle,
+            #41496d,
+            #151821
+        );
+
+    margin-bottom:20px;
+}
+
+.modal h2{
+    margin-bottom:7px;
+}
+
+.modal p{
+    color:#858c9e;
+    line-height:1.5;
+}
+
+/* ===== MOBILE ===== */
+
+@media(max-width:800px){
+
+    header{
+        padding:0 15px;
+        gap:8px;
+    }
+
+    .logo{
+        font-size:18px;
+    }
+
+    nav button{
+        padding:9px 7px;
+        font-size:11px;
+    }
+
+    .profile{
+        display:none;
+    }
+
+    main{
+        padding:20px 15px 60px;
+    }
+
+    .hero{
+        padding:30px;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    .market-top{
+        flex-direction:column;
+    }
+
+    .filter{
+        height:45px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+STUMBLE<span>HUB</span>
+</div>
+
+<nav>
+
+<button class="active"
+onclick="page('home',this)">
+Главная
+</button>
+
+<button
+onclick="page('skins',this)">
+Скины
+</button>
+
+<button
+onclick="page('inventory',this)">
+Инвентарь
+</button>
+
+<button
+onclick="page('leaders',this)">
+Лидеры
+</button>
+
+</nav>
+
+<div class="profile">
+YT|Ares vega
+</div>
+
+</header>
+
+
+<main>
+
+
+<!-- ================= HOME ================= -->
+
+<section
+id="home"
+class="page active">
+
+<div class="hero">
+
+<div class="hero-content">
+
+<span class="badge">
+STUMBLE GUYS COMMUNITY
+</span>
+
+<h1>
+STUMBLE<br>
+HUB
+</h1>
+
+<p>
+Скины, игроки, коллекции
+и статистика Stumble Guys
+в одном игровом хабе.
+</p>
+
+<button
+class="primary"
+onclick="
+page(
+'skins',
+document.querySelectorAll('nav button')[1]
+)">
+Смотреть скины
+</button>
+
+</div>
+
+</div>
+
+
+<div class="section">
+
+<div class="title">
+
+<h2>
+Популярное
+</h2>
+
+<span>
+Сегодня
+</span>
+
+</div>
+
+
+<div class="cards">
+
+<div
+class="card"
+onclick="openSkin('Shadow Ninja','🥷','Legendary')">
+
+<div class="visual">
+🥷
+</div>
+
+<div class="card-info">
+
+<h3>
+Shadow Ninja
+</h3>
+
+<div class="rarity">
+Legendary
+</div>
+
+</div>
+
+</div>
+
+
+<div
+class="card"
+onclick="openSkin('Golden Champion','👑','Special')">
+
+<div class="visual">
+👑
+</div>
+
+<div class="card-info">
+
+<h3>
+Golden Champion
+</h3>
+
+<div class="rarity">
+Special
+</div>
+
+</div>
+
+</div>
+
+
+<div
+class="card"
+onclick="openSkin('Cyber Bot','🤖','Epic')">
+
+<div class="visual">
+🤖
+</div>
+
+<div class="card-info">
+
+<h3>
+Cyber Bot
+</h3>
+
+<div class="rarity">
+Epic
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= SKINS ================= -->
+
+<section
+id="skins"
+class="page">
+
+<div class="title">
+
+<h2>
+Скины
+</h2>
+
+<span>
+Каталог
+</span>
+
+</div>
+
+
+<div class="market-top">
+
+<input
+class="search"
+id="search"
+placeholder="Поиск скина..."
+oninput="searchSkins()">
+
+<select
+class="filter"
+id="rarity"
+onchange="searchSkins()">
+
+<option value="all">
+Все
+</option>
+
+<option value="Legendary">
+Legendary
+</option>
+
+<option value="Special">
+Special
+</option>
+
+<option value="Epic">
+Epic
+</option>
+
+<option value="Rare">
+Rare
+</option>
+
+</select>
+
+</div>
+
+
+<div
+class="cards"
+id="skinGrid">
+
+
+<div
+class="card skin-item"
+data-name="Shadow Ninja"
+data-rarity="Legendary"
+onclick="openSkin('Shadow Ninja','🥷','Legendary')">
+
+<div class="visual">
+🥷
+</div>
+
+<div class="card-info">
+<h3>Shadow Ninja</h3>
+<div class="rarity">Legendary</div>
+</div>
+
+</div>
+
+
+<div
+class="card skin-item"
+data-name="Golden Champion"
+data-rarity="Special"
+onclick="openSkin('Golden Champion','👑','Special')">
+
+<div class="visual">
+👑
+</div>
+
+<div class="card-info">
+<h3>Golden Champion</h3>
+<div class="rarity">Special</div>
+</div>
+
+</div>
+
+
+<div
+class="card skin-item"
+data-name="Cyber Bot"
+data-rarity="Epic"
+onclick="openSkin('Cyber Bot','🤖','Epic')">
+
+<div class="visual">
+🤖
+</div>
+
+<div class="card-info">
+<h3>Cyber Bot</h3>
+<div class="rarity">Epic</div>
+</div>
+
+</div>
+
+
+<div
+class="card skin-item"
+data-name="Inferno"
+data-rarity="Rare"
+onclick="openSkin('Inferno','🔥','Rare')">
+
+<div class="visual">
+🔥
+</div>
+
+<div class="card-info">
+<h3>Inferno</h3>
+<div class="rarity">Rare</div>
+</div>
+
+</div>
+
+
+<div
+class="card skin-item"
+data-name="Volt"
+data-rarity="Epic"
+onclick="openSkin('Volt','⚡','Epic')">
+
+<div class="visual">
+⚡
+</div>
+
+<div class="card-info">
+<h3>Volt</h3>
+<div class="rarity">Epic</div>
+</div>
+
+</div>
+
+
+<div
+class="card skin-item"
+data-name="Ice King"
+data-rarity="Legendary"
+onclick="openSkin('Ice King','🧊','Legendary')">
+
+<div class="visual">
+🧊
+</div>
+
+<div class="card-info">
+<h3>Ice King</h3>
+<div class="rarity">Legendary</div>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= INVENTORY ================= -->
+
+<section
+id="inventory"
+class="page">
+
+<div class="title">
+
+<h2>
+Инвентарь
+</h2>
+
+<span>
+YT|Ares vega
+</span>
+
+</div>
+
+
+<div class="cards">
+
+<div class="card">
+
+<div class="visual">
+👑
+</div>
+
+<div class="card-info">
+
+<h3>
+Golden Champion
+</h3>
+
+<div class="rarity">
+Special • Получен
+</div>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="visual">
+🥷
+</div>
+
+<div class="card-info">
+
+<h3>
+Shadow Ninja
+</h3>
+
+<div class="rarity">
+Legendary • Получен
+</div>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="visual">
+⚡
+</div>
+
+<div class="card-info">
+
+<h3>
+Volt
+</h3>
+
+<div class="rarity">
+Epic • Получен
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= LEADERS ================= -->
+
+<section
+id="leaders"
+class="page">
+
+<div class="title">
+
+<h2>
+Лидерборд
+</h2>
+
+<span>
+Top players
+</span>
+
+</div>
+
+
+<div class="player-list">
+
+<div class="player">
+
+<div class="avatar">
+A
+</div>
+
+<div>
+
+<div class="player-name">
+Ares vega
+</div>
+
+<div class="player-rank">
+Champion
+</div>
+
+</div>
+
+<div class="points">
+12 840
+</div>
+
+</div>
+
+
+<div class="player">
+
+<div class="avatar">
+S
+</div>
+
+<div>
+
+<div class="player-name">
+Shadow
+</div>
+
+<div class="player-rank">
+Champion
+</div>
+
+</div>
+
+<div class="points">
+12 510
+</div>
+
+</div>
+
+
+<div class="player">
+
+<div class="avatar">
+V
+</div>
+
+<div>
+
+<div class="player-name">
+Vortex
+</div>
+
+<div class="player-rank">
+Master
+</div>
+
+</div>
+
+<div class="points">
+11 970
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+
+<!-- ================= MODAL ================= -->
+
+<div
+class="modal"
+id="modal">
+
+<div class="modal-box">
+
+<button
+class="close"
+onclick="closeSkin()">
+×
+</button>
+
+<div
+class="modal-visual"
+id="modalVisual">
+</div>
+
+<h2 id="modalName">
+</h2>
+
+<p id="modalRarity">
+</p>
+
+<br>
+
+<p>
+Здесь позже будет настоящая
+3D-модель персонажа, информация
+о скине и другие данные.
+</p>
+
+</div>
+
+</div>
+
+
+<script>
+
+function page(id,button){
+
+document
+.querySelectorAll(".page")
+.forEach(
+p=>p.classList.remove("active")
+);
+
+document
+.getElementById(id)
+.classList.add("active");
+
+document
+.querySelectorAll("nav button")
+.forEach(
+b=>b.classList.remove("active")
+);
+
+if(button){
+button.classList.add("active");
+}
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+
+function openSkin(name,icon,rarity){
+
+document
+.getElementById("modal")
+.classList.add("show");
+
+document
+.getElementById("modalName")
+.textContent=name;
+
+document
+.getElementById("modalRarity")
+.textContent=rarity;
+
+document
+.getElementById("modalVisual")
+textContent=icon;
+
+}
+
+
+function closeSkin(){
+
+document
+.getElementById("modal")
+.classList.remove("show");
+
+}
+
+
+function searchSkins(){
+
+const search=
+document
+.getElementById("search")
+.value
+.toLowerCase();
+
+const rarity=
+document
+.getElementById("rarity")
+.value;
+
+
+document
+.querySelectorAll(".skin-item")
+.forEach(card=>{
+
+const name=
+card.dataset.name
+.toLowerCase();
+
+const cardRarity=
+card.dataset.rarity;
+
+const nameOK=
+name.includes(search);
+
+const rarityOK=
+rarity==="all" ||
+cardRarity===rarity;
+
+if(nameOK && rarityOK){
+
+card.style.display="block";
+
+}else{
+
+card.style.display="none";
+
+}
+
+});
+
+}
+
+</script>
+
+</body>
+</html>
